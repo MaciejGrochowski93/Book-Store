@@ -1,4 +1,4 @@
-package maciej.grochowski.VideoStore;
+package maciej.grochowski.book;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

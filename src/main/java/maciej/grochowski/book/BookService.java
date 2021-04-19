@@ -1,8 +1,9 @@
-package maciej.grochowski.VideoStore;
+package maciej.grochowski.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,9 @@ public class BookService {
     private BookRepository bookRepository;
 
     public List<Book> getAllBooks(){
-        return bookRepository.findAll();
+        List<Book> booksList = new ArrayList<>();
+        bookRepository.findAll().forEach(booksList::add);
+        return booksList;
     }
 
 
@@ -21,17 +24,17 @@ public class BookService {
         return bookRepository.findById(id).orElse(null);
     }
 
-    public List<Book> getBooksByAuthor(String author) {
-        return bookRepository.findAll()
-                .stream().filter(e -> e.getAuthor().equals(author))
-                .collect(Collectors.toList());
-    }
+//    public List<Book> getBooksByAuthor(String author) {
+//        return bookRepository.findAll()
+//                .stream().filter(e -> e.getAuthor().equals(author))
+//                .collect(Collectors.toList());
+//    }
 
-    public List<Book> getBooksByCathegory(String cathegory) {
-        return bookRepository.findAll()
-                .stream().filter(e -> e.getCathegory().equals(cathegory))
-                .collect(Collectors.toList());
-    }
+//    public List<Book> getBooksByCategory(String category) {
+//        return bookRepository.findAll()
+//                .stream().filter(e -> e.getCategory().equals(category))
+//                .collect(Collectors.toList());
+//    }
 
     public void addBook(Book book) {
         bookRepository.save(book);

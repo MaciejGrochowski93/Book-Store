@@ -1,4 +1,4 @@
-package maciej.grochowski.VideoStore;
+package maciej.grochowski.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +11,11 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @RequestMapping("/")
+    public String home(){
+        return "Hello there!";
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/books")
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();
@@ -19,16 +24,6 @@ public class BookController {
     @RequestMapping(method = RequestMethod.GET, value = "/books/{id}")
     public Book getBookById(@PathVariable int id) {
         return bookService.getBookById(id);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/books/{author}")
-    public List<Book> getBooksByAuthor(@PathVariable String author) {
-        return bookService.getBooksByAuthor(author);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/books/{cathegory}")
-    public List<Book> getBooksByCathegory(@PathVariable String cathegory) {
-        return bookService.getBooksByCathegory(cathegory);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/books")
@@ -46,3 +41,13 @@ public class BookController {
         bookService.deleteBook(id);
     }
 }
+
+//    @RequestMapping(method = RequestMethod.GET, value = "/books/{author}")
+//    public List<Book> getBooksByAuthor(@PathVariable String author) {
+//        return bookService.getBooksByAuthor(author);
+//    }
+
+//    @RequestMapping(method = RequestMethod.GET, value = "/books/{category}")
+//    public List<Book> getBooksByCategory(@PathVariable String category) {
+//        return bookService.getBooksByCategory(category);
+//    }
