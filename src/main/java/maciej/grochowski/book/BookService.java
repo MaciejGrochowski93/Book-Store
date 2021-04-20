@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -13,28 +13,15 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List<Book> getAllBooks(){
+    public List<Book> getAllBooks() {
         List<Book> booksList = new ArrayList<>();
         bookRepository.findAll().forEach(booksList::add);
         return booksList;
     }
 
-
     public Book getBookById(int id) {
         return bookRepository.findById(id).orElse(null);
     }
-
-//    public List<Book> getBooksByAuthor(String author) {
-//        return bookRepository.findAll()
-//                .stream().filter(e -> e.getAuthor().equals(author))
-//                .collect(Collectors.toList());
-//    }
-
-//    public List<Book> getBooksByCategory(String category) {
-//        return bookRepository.findAll()
-//                .stream().filter(e -> e.getCategory().equals(category))
-//                .collect(Collectors.toList());
-//    }
 
     public void addBook(Book book) {
         bookRepository.save(book);
@@ -47,4 +34,16 @@ public class BookService {
     public void deleteBook(int id) {
         bookRepository.deleteById(id);
     }
+
+    public void sellBook(int id) {
+        Optional<Book> book = bookRepository.findById(id);
+        book.stream().findFirst()
+                .ifPresent(e -> {
+                    if (e.getAmountAvailable() > 1) {
+                        e.setAmountAvailable(e.getAmountAvailable() - 1);
+                        bookRepository.save(e);
+                    }
+                });
+    }
 }
+
