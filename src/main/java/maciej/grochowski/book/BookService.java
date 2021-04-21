@@ -45,5 +45,29 @@ public class BookService {
                     }
                 });
     }
+
+    public List<Book> getBookByCategory(String category) {
+        List<Book> bookList = new ArrayList<>();
+        bookRepository.findAll().stream()
+                .filter(e -> e.getCategory().toLowerCase().equals(category.toLowerCase()))
+                .forEach(bookList::add);
+        return bookList;
+    }
+
+    public List<Book> getBookByAuthor(String author) {
+        List<Book> bookList = new ArrayList<>();
+        bookRepository.findAll().stream()
+                .filter(e -> e.getAuthor().toLowerCase().contains(author.toLowerCase()))
+                .forEach(bookList::add);
+        return bookList;
+    }
+
+    public List<Book> getBookByTitle(String title) {
+        List<Book> bookList = new ArrayList<>();
+        bookRepository.findAll().stream()
+                .filter(e -> e.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .forEach(bookList::add);
+        return bookList;
+    }
 }
 

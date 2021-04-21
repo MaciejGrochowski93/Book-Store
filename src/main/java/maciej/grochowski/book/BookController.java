@@ -39,6 +39,21 @@ public class BookController {
         return bookService.getBookById(id);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/category/{category}")
+    public List<Book> getBookByCategory(@PathVariable String category) {
+        return bookService.getBookByCategory(category);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/author/{author}")
+    public List<Book> getBookByAuthor(@PathVariable String author) {
+        return bookService.getBookByAuthor(author);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/title/{title}")
+    public List<Book> getBookByTitle(@PathVariable String title) {
+        return bookService.getBookByTitle(title);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public void addBook(@RequestBody Book book) {
         bookService.addBook(book);
